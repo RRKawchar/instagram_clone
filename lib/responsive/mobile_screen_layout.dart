@@ -51,8 +51,8 @@ late PageController pageController;
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChange,
-        children:homeScreenItem,
         physics: const NeverScrollableScrollPhysics(),
+        children:homeScreenItem,
       ),
       bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,
