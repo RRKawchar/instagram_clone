@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/models/user_model.dart';
 import 'package:instagram_clone/providers/user_provider.dart';
+import 'package:instagram_clone/screens/comment_screen.dart';
 import 'package:instagram_clone/sources/firestore_methods.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/like_animation.dart';
@@ -16,8 +17,7 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-
-  bool isLikeAnimating=false;
+  bool isLikeAnimating = false;
   @override
   Widget build(BuildContext context) {
     final UserModel userModel = Provider.of<UserProvider>(context).getUser;
@@ -85,10 +85,11 @@ class _PostCardState extends State<PostCard> {
 
           /// Image Section
           GestureDetector(
-            onDoubleTap: ()async{
-              await FireStoreMethods().likePost(widget.snap['postId'], userModel.uid, widget.snap['likes']);
+            onDoubleTap: () async {
+              await FireStoreMethods().likePost(
+                  widget.snap['postId'], userModel.uid, widget.snap['likes']);
               setState(() {
-                isLikeAnimating=true;
+                isLikeAnimating = true;
               });
             },
             child: Stack(
@@ -106,14 +107,14 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 AnimatedOpacity(
-                  duration: const Duration(milliseconds:200 ),
-                  opacity: isLikeAnimating? 1:0,
+                  duration: const Duration(milliseconds: 200),
+                  opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
                     isAnimating: isLikeAnimating,
                     duration: const Duration(milliseconds: 400),
                     onEnd: () {
                       setState(() {
-                        isLikeAnimating=false;
+                        isLikeAnimating = false;
                       });
                     },
                     child: const Icon(
@@ -134,19 +135,29 @@ class _PostCardState extends State<PostCard> {
                 isAnimating: widget.snap['likes'].contains(userModel.uid),
                 smallLike: true,
                 child: IconButton(
-                    onPressed: () async{
-                      await FireStoreMethods().likePost(widget.snap['postId'], userModel.uid, widget.snap['likes']);
+                    onPressed: () async {
+                      await FireStoreMethods().likePost(widget.snap['postId'],
+                          userModel.uid, widget.snap['likes']);
                     },
-                    icon:widget.snap['likes'].contains(userModel.uid)? const Icon(
-                      Icons.favorite,
-                      color: Colors.red,
-                    ):const Icon(
-                      Icons.favorite_border,
-                    )
-                ),
+                    icon: widget.snap['likes'].contains(userModel.uid)
+                        ? const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : const Icon(
+                            Icons.favorite_border,
+                          )),
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CommentScreen(
+
+                              snap: widget.snap,
+                            )));
+                  },
                   icon: const Icon(
                     Icons.comment_outlined,
                   )),
@@ -214,7 +225,8 @@ class _PostCardState extends State<PostCard> {
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
-                    DateFormat.yMMMd().format(widget.snap['datePublished'].toDate()),
+                    DateFormat.yMMMd()
+                        .format(widget.snap['datePublished'].toDate()),
                     style: const TextStyle(fontSize: 16, color: secondaryColor),
                   ),
                 ),
