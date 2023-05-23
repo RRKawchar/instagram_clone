@@ -1,15 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:instagram_clone/screens/add_post_screen.dart';
 import 'package:instagram_clone/screens/feedScreen.dart';
+import 'package:instagram_clone/screens/profile_screen.dart';
+import 'package:instagram_clone/screens/search_screen.dart';
 
-const webScreenSize=600;
+const webScreenSize = 600;
 
-const homeScreenItem=[
-
+var homeScreenItem = [
   FeedScreen(),
-  Center(child: Text("search"),),
- AddPostScreen(),
-  Center(child: Text("favorite"),),
-  Center(child: Text("setting"),),
-
+  SearchScreen(),
+  AddPostScreen(),
+  Center(child: Text("favorite")),
+  ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
 ];

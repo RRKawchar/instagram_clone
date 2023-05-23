@@ -33,19 +33,25 @@ class _CommentScreenState extends State<CommentScreen> {
         backgroundColor: mobileBackgroundColor,
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').snapshots(),
-        builder: (context,snapshot){
-          if(snapshot.connectionState==ConnectionState.waiting){
-            return const Center(child: CircularProgressIndicator(),);
+        stream: FirebaseFirestore.instance
+            .collection('posts')
+            .doc(widget.snap['postId'])
+            .collection('comments')
+            .orderBy('datePublished',descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
           return ListView.builder(
               itemCount: (snapshot.data! as dynamic).docs.length,
-              itemBuilder: (context,index){
-            return CommentCard(
-              snap: (snapshot.data!.docs as dynamic)[index].data(),
-
-            );
-          });
+              itemBuilder: (context, index) {
+                return CommentCard(
+                  snap: (snapshot.data!.docs as dynamic)[index].data(),
+                );
+              });
         },
       ),
       bottomNavigationBar: SafeArea(
@@ -82,7 +88,7 @@ class _CommentScreenState extends State<CommentScreen> {
                     userModel.photoUrl,
                   );
                   setState(() {
-                    _commentController.text="";
+                    _commentController.text = "";
                   });
                 },
                 child: Container(
