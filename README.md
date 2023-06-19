@@ -1,16 +1,7 @@
 # instagram_clone
 
-A new Flutter project.
+![Apple iPhone 11 Pro Max Presentation](https://github.com/RRKawchar/instagram_clone/assets/97376140/0b0e8b36-2974-49f8-bc75-30368d291245)
+![Apple iPhone 11 Pro Max Presentation (1)](https://github.com/RRKawchar/instagram_clone/assets/97376140/497bc321-f28d-42d9-ada8-5c7ed8bbc701)
+![Apple iPhone 11 Pro Max Presentation (2)](https://github.com/RRKawchar/instagram_clone/assets/97376140/2d9e4218-ef2a-443d-900b-2a780a228401)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
